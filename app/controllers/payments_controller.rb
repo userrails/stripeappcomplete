@@ -25,6 +25,13 @@ class PaymentsController < ApplicationController
 		end
 	end
 
+	def refund_amount
+	  @payment = Payment.find(params[:id])
+
+	  ch = Stripe::Charge.retrieve("ch_152LAGKoWV3K0SqrJA7kVQm3")
+      refund = ch.refunds.create
+	end
+
 	def index
 		@payments = Payment.where("payment_status='Done'")
 	end

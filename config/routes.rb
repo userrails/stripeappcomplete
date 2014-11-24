@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
    root 'payments#index'
-   resources :payments
+   resources :payments do 
+      member do 
+        post :refund_amount
+      end
+   end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
