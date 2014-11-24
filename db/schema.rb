@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20141124122654) do
     t.datetime "updated_at"
     t.string   "email"
     t.string   "payment_status"
-    t.string   "charge_id"
+    t.string   "stripe_charge_id"
   end
 
 end
