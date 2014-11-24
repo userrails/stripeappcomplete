@@ -18,7 +18,7 @@ class PaymentsController < ApplicationController
 	        :description => "#{@payment.email}",
 	        :currency    => 'cad'
 	      )
-	      @payment.update_attributes(:payment_status => "Done")
+	      @payment.update_attributes(:payment_status => "Done", :stripe_charge_id => charge.id)
 			redirect_to root_path
 		else
 			render :action => :new
@@ -28,8 +28,9 @@ class PaymentsController < ApplicationController
 	def refund_amount
 	  @payment = Payment.find(params[:id])
 
-	  ch = Stripe::Charge.retrieve("ch_152LAGKoWV3K0SqrJA7kVQm3")
+	  ch = Stripe::Charge.retrieve(@payment.stripe_charge_id)
       refund = ch.refunds.create
+      redirect_to root_path
 	end
 
 	def index

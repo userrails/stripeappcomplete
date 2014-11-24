@@ -21,7 +21,7 @@
  			<%= payment.amount %>
  		</td>
  		<td>
- 			<%= link_to "Refund Amount" %>
+ 			<%= link_to "Refund Amount", refund_amount_payment_path(payment.id), :method => "PUT" %>
  		</td>
  	</tr>
 	<% end %>

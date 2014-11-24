@@ -4,9 +4,10 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
    root 'payments#index'
+
    resources :payments do 
       member do 
-        post :refund_amount
+        put :refund_amount
       end
    end
 
