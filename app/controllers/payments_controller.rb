@@ -30,6 +30,9 @@ class PaymentsController < ApplicationController
 
 	  ch = Stripe::Charge.retrieve(@payment.stripe_charge_id)
       refund = ch.refunds.create
+
+      @payment.update_attributes(:payment_status => "Refunded")
+
       redirect_to root_path
 	end
 
