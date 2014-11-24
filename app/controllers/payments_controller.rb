@@ -6,6 +6,7 @@ class PaymentsController < ApplicationController
 	def create
 		@payment = Payment.new(payment_params)
 		if @payment.save
+
 	      customer = Stripe::Customer.create(
 	        :card  => params[:payment][:stripe_card_token]
 	      )
@@ -13,10 +14,11 @@ class PaymentsController < ApplicationController
 	      @payment.update(:stripe_customer_id => customer.id, :stripe_card_token => params[:payment][:stripe_card_token] )
 	      charge = Stripe::Charge.create(
 	        :customer    => customer.id,
-	        :amount      => @payment.amount.to_i * 100,
+	        :amount      => @payment.amount.to_i * 100 ,
 	        :description => "#{@payment.email}",
 	        :currency    => 'cad'
 	      )
+	      @payment.update_attributes(:payment_status => "Done")
 			redirect_to root_path
 		else
 			render :action => :new
@@ -24,7 +26,7 @@ class PaymentsController < ApplicationController
 	end
 
 	def index
-
+		@payments = Payment.where("payment_status='Done'")
 	end
 
 	private

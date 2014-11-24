@@ -1,1 +1,29 @@
-<%= link_to "Payment", new_payment_path %>
+<%= link_to "Make Payment", new_payment_path %>
+
+<table border="1">
+<tr>
+	<th>Name</th>
+	<th>Email</th>
+	<th>Paid Amount</th>
+	<th>Want to Refund?</th>
+</tr>
+	<% if @payments.present? %>
+	<% @payments.each do |payment| %>
+ 	<tr>
+ 		<td>
+ 			<%= payment.first_name + payment.last_name %>
+ 		</td>
+
+ 		<td>
+ 			<%= payment.email %>
+ 		</td>
+ 		<td>
+ 			<%= payment.amount %>
+ 		</td>
+ 		<td>
+ 			<%= link_to "Refund Amount" %>
+ 		</td>
+ 	</tr>
+	<% end %>
+	<% end %>
+</table>
